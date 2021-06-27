@@ -1,0 +1,30 @@
+[global_config]
+  title_hide_sizetext = True
+  title_transmit_fg_color = "#d8dee9"
+  title_transmit_bg_color = "#5294e2"
+  title_receive_bg_color = "#5294e2"
+  title_inactive_fg_color = "#d8dee9"
+  title_inactive_bg_color = "#5294e2"
+  inactive_color_offset = 0.9506172839506173
+[keybindings]
+  paste = <Primary>v
+[profiles]
+  [[default]]
+    background_color = "#2e3440"
+    cursor_color = "#aaaaaa"
+    font = Monospace 12
+    foreground_color = "#d8dee9"
+    scrollback_infinite = True
+    palette = "#3b4252:#bf616a:#a3be8c:#ebcb8b:#81a1c1:#b48ead:#88c0d0:#e5e9f0:#4c566a:#bf616a:#a3be8c:#ebcb8b:#81a1c1:#b48ead:#8fbcbb:#eceff4"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+      profile = default
+    [[[window0]]]
+      parent = ""
+      type = Window
+      size = 1100, 700
+[plugins]

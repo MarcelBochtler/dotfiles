@@ -1,0 +1,130 @@
+#!/bin/bash
+
+# Script that is used to keep my systemes up-to-date.
+# Checks if the package manager is available and updates it if required.
+# Basically a custom implementation of https://xkcd.com/1654/.
+
+set -e
+
+# Kill the whole script instead of one command after CTRL+C
+trap "exit" INT
+
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+YELLOW="\033[1;33m"
+NOCOLOR="\033[0m"
+
+dotfiles="/usr/bin/git --git-dir=${HOME}/.dotfiles/ --work-tree=${HOME}"
+
+# Sudo permissions are required at a later point
+sudo -v
+
+echo -e "${GREEN}Updating system!${NOCOLOR}"
+
+# apt
+if [ "$(command -v apt-get)" ]; then
+    echo -e "${GREEN}\nUpdating APT${NOCOLOR}\n"
+    sudo apt update -qq && sudo apt upgrade -y -qq && sudo apt dist-upgrade -y -qq && sudo apt autoremove -y -qq
+fi
+
+# dnf
+if [ "$(command -v dnf)" ]; then
+    echo -e "${GREEN}\nUpdating DNF\n${NOCOLOR}"	
+    sudo dnf upgrade -y && sudo dnf autoremove
+fi
+
+# pacman
+if [ "$(command -v pacman)" ]; then
+    echo -e "${GREEN}\nUpdating pacman\n${NOCOLOR}"
+    sudo pacman -Syu
+    if [[ "$(pacman -Qtdq)" ]]; then
+        echo -e "${GREEN}\nRemoving orphaned packages\n${NOCOLOR}"
+        sudo pacman -Qtdq | sudo pacman -Rns -
+    fi
+fi
+
+# yay
+if [ "$(command -v yay)" ]; then
+    echo -e "${GREEN}\nUpdating yay\n${NOCOLOR}"
+    yay --nodiffmenu --noeditmenu --noupgrademenu --nocleanmenu -Syu
+fi
+
+# flatpak
+if [ "$(command -v flatpak)" ]; then
+    echo -e "${GREEN}\nUpdating flatpak\n${NOCOLOR}"
+    flatpak update -y
+fi
+
+# Snap
+if [ "$(command -v snap)" ]; then
+    echo -e "${GREEN}\nUpdating snap\n${NOCOLOR}"
+    sudo snap refresh
+fi
+
+# sdkman
+if [ "$(command -v sdk)" ]; then
+    echo -e "${GREEN}\nUpdating sdkman\n${NOCOLOR}"
+    # See: https://github.com/sdkman/sdkman-cli/issues/681
+    SDKMAN_REMOTE_VERSION="$SDKMAN_VERSION"
+    sdk update && sdk upgrade && sdk selfupdate
+fi
+
+# pihole
+if [ "$(command -v pihole)" ]; then
+    echo -e "${GREEN}\nUpdating pihole\n${NOCOLOR}"
+    pihole -up
+fi
+
+# MacPorts
+if [ "$(command -v port)"  ]; then
+    echo -e "${GREEN}\nUpdating MacPorts\n${NOCOLOR}"
+    sudo port selfupdate
+    echo -e "\n${YELLOW}"
+    port outdated
+    echo -e "${NOCOLOR}\n"
+    sudo port upgrade outdated
+    # Uninstall old versions
+    # sudo port uninstall inactive
+fi
+
+# HomeBrew
+if [ "$(command -v brew)" ]; then
+    echo -e "${GREEN}\nUpdating Homebrew\n${NOCOLOR}"
+    brew update
+    brew upgrade
+fi
+
+if [ "$(command -v mas)" ]; then
+    echo -e "${GREEN}\nUpdating Mac App Store\n${NOCOLOR}"
+    mas upgrade
+fi
+
+# MSUpdate
+MSUPDATE='/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/'
+if [ -d "$MSUPDATE" ]; then
+    echo -e "${GREEN}\nUpdating msupdate\n${NOCOLOR}"
+    # Needs to run in subshell to avoid changing the directory for the whole script.
+    (
+        cd "$MSUPDATE"
+        UP_TO_DATE=$(./msupdate --list | grep 'No updates available' | wc -l)
+        if [[ "$UP_TO_DATE" -lt 1 ]]; then
+            ./msupdate --install
+        else
+            echo -e "${YELLOW}All Microsoft applications are up-to-date.${NOCOLOR}"
+        fi
+    )
+fi
+
+
+# dotfiles
+echo -e "${GREEN}\nUpdating dotfiles\n${NOCOLOR}"
+
+# Check for dirty dotfiles
+if [[ $($dotfiles diff --stat) != '' ]]; then
+    echo -e "\n${RED}Local Dotfiles contain changes. Please commit them.${NOCOLOR}\n"
+fi
+
+# update submodules
+$dotfiles pull --quiet --recurse-submodules
+
+echo -e "${GREEN}\nUpdate done!${NOCOLOR}"

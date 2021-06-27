@@ -1,0 +1,127 @@
+#!/bin/bash
+
+alias dotfiles="/usr/bin/git --git-dir=${HOME}/.dotfiles/ --work-tree=${HOME}"
+dot() {
+  # We don't want to clean or reset the home dir
+  if [[ "$1" == "reset" ]] || [[ "$1" == "clean" ]]; then
+    echo "No, don't do that"
+    return
+  elif [[ "$1" == "up" ]]; then
+    dotfiles submodule update --quiet --remote --recursive
+  else
+    dotfiles "$@"
+  fi
+}
+
+alias ls="ls --color=auto --group-directories-first --color=auto"
+alias ll="ls -lh"
+alias mv="mv -iv"
+alias cp="cp -riv"
+alias mkdir="mkdir -vp"
+
+if [ "$(command -v xdg-open)" ]; then
+  alias open="xdg-open"
+fi
+if [ -d ~/.diff-so-fancy ]; then
+  alias diff-so-fancy="~/.diff-so-fancy/diff-so-fancy"
+fi
+
+# Used to pipe to clipboard
+alias copy="xclip -selection c"
+
+# Git aliases
+# Git status. Prints out prettier status and diff.
+# From https://www.reddit.com/r/git/comments/avv34g/nicer_gitstatus/
+nice_status() {
+  awk -vOFS='' '
+    NR==FNR {
+        all[i++] = $0;
+        difffiles[$1] = $0;
+        next;
+    }
+    ! ($2 in difffiles) {
+        print; next;
+    }
+    {
+        gsub($2, difffiles[$2]);
+        print;
+    }
+    END {
+        if (NR != FNR) {
+            # Had diff output
+            exit;
+        }
+        # Had no diff output, just print lines from git status -sb
+        for (i in all) {
+            print all[i];
+        }
+    }
+' \
+    <(git diff --color --stat HEAD | sed '$d; s/^ //')\
+    <(git -c color.status=always status -sb)
+}
+
+fzf_checkout() {
+  if [ -n "$1" ]; then
+    git checkout "$@"
+  else
+    git branch --sort=-committerdate | fzf | xargs -I '{}' git checkout {}
+  fi
+}
+
+# Delete merged branches
+# Shows the list that will be deleted before actually deleting it
+cleanup() {
+  git branch --merged | grep -v "master" | grep -v "develop" | grep -v "release" >! /tmp/merged-branches && \
+    vim /tmp/merged-branches && \
+    xargs git branch -d </tmp/merged-branches
+}
+
+alias g="git"
+alias ga="git add"
+alias gc="git commit -v"
+alias gf="git fetch --all --tags"
+alias gbr="git branch"
+alias gph="git push"
+alias gpl="git pull --rebase"
+alias gs="git status"
+# fixup - requires a hash as value
+alias gcf="git commit --fixup"
+alias gst="nice_status"
+alias gch="fzf_checkout"
+alias gchb="git checkout -b"
+alias gss="git stash"
+alias gpf="git push --force-with-lease"
+alias gr="git rebase"
+alias gri="git rebase -i"
+alias grm="git fetch upstream master:master && git rebase master"
+# Rebase interactive all commits of the current branch
+alias grib='git rebase -i "$(git merge-base master HEAD)"'
+# Update master without checkout
+alias gup="git fetch upstream master:master"
+# Sync with upstream
+alias gsy="git sync"
+
+alias mvni='mvn install'
+alias mvnci='mvn clean install'
+
+if [ -x "$(command -v batcat)" ]; then
+  # Installed as batcat on ubuntu
+  alias bat=batcat
+fi
+
+if [ -x "$(command -v fdfind)" ]; then
+  # Installed as fdfind on ubuntu
+  alias fd=fdfind
+fi
+
+if [ -x "$(command -v yay)" ]; then
+  aur() {
+    yay --nodiffmenu --noeditmenu --noupgrademenu --nocleanmenu "$@"
+  }
+fi
+
+update() {
+  $HOME/bin/do_update
+}
+alias up="update"

@@ -1,0 +1,5 @@
+# Without line numbers
+--style=plain
+
+# Pager defaults to less
+--paging=never

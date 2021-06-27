@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Break on error
+set -e
+
+# Backup dirs
+LOCAL_BACKUP_DIR="$HOME/Private/Backups/RaspberryPi/pihole"
+REMOTE_BACKUP_DIR="/tmp/backup-pihole/"
+
+# Create backup
+BACKUP_NAME=$(ssh pi@192.168.1.11 "mkdir -p $REMOTE_BACKUP_DIR && cd $REMOTE_BACKUP_DIR && pihole -a teleporter && ls $REMOTE_BACKUP_DIR")
+
+# Download backup
+scp "pi@192.168.1.11:$REMOTE_BACKUP_DIR/$BACKUP_NAME" "$LOCAL_BACKUP_DIR"
+
+# Delete remote backup file
+ssh pi@192.168.1.11 "rm -rf $REMOTE_BACKUP_DIR"

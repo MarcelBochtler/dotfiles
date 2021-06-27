@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+path="$HOME/Private/workspace/macports-ports"
+
+# Fix permissions for all directories in $path
+echo "chmod +rx $path"
+fd . "$path" -HI -t d --exec chmod +rx
+
+# Fix permissions for all files in $path
+echo "chmod +r $path"
+fd . "$path" -HI -t f --exec chmod +r
+
+# Fix permissions for all parent directories up to /Users
+while [[ $path != /Users ]]; do
+    echo "chmod +rx $path"
+    chmod +rx "$path"
+    path="$(readlink -f "$path"/..)"
+done

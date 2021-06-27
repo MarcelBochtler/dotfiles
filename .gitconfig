@@ -1,0 +1,15 @@
+[user]
+    useConfigOnly = true
+    signingkey = 9D0D311B3EFD4D07
+[include]
+    # Requires local .gituser file with this content:
+    # [user]
+    #       name = 
+    #       email = 
+    path = ~/.gituser
+[core]
+    pager = delta
+[rebase]
+    autosquash = true
+[alias]
+    sync = !"sh -c 'git pull upstream ${1-$(git symbolic-ref --short -q HEAD)}; git push' -"

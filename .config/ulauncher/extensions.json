@@ -1,0 +1,30 @@
+{
+    "com.github.manahter.ulauncher-translate": {
+        "id": "com.github.manahter.ulauncher-translate",
+        "url": "https://github.com/manahter/ulauncher-translate",
+        "updated_at": "2020-11-28T17:38:07.210245",
+        "last_commit": "38cf20f4621704b26a1e866d066ccb6a2acac5f2",
+        "last_commit_time": "2020-11-21T21:26:56"
+    },
+    "com.github.elken.terminal-runner": {
+        "id": "com.github.elken.terminal-runner",
+        "url": "https://github.com/elken/Terminal-Runner",
+        "updated_at": "2020-11-28T17:38:08.170639",
+        "last_commit": "6807ebe6047462bcce6063c63228eddcb8c6b481",
+        "last_commit_time": "2020-02-22T23:04:04"
+    },
+    "com.github.ulauncher.ulauncher-emoji": {
+        "id": "com.github.ulauncher.ulauncher-emoji",
+        "url": "https://github.com/Ulauncher/ulauncher-emoji",
+        "updated_at": "2020-11-28T17:38:12.417972",
+        "last_commit": "d56b2c8106ab5fbc87b55f608a3bd75db23f2904",
+        "last_commit_time": "2020-10-03T19:10:03"
+    },
+    "com.github.kbialek.ulauncher-bitwarden": {
+        "id": "com.github.kbialek.ulauncher-bitwarden",
+        "url": "https://github.com/kbialek/ulauncher-bitwarden",
+        "updated_at": "2020-12-09T16:44:24.177781",
+        "last_commit": "aaa8f4331b4dad350f1fe4e76e64b3e9d73074d5",
+        "last_commit_time": "2020-11-14T17:09:56"
+    }
+}

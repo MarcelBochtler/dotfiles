@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Do not break on error because tar might not return 0 if some data changed during backup.
+# The backup still works when this happens.
+# set -e
+
+BACKUP_DIR="$HOME/Private/Backups/RaspberryPi/tar"
+
+HOME_BACKUP_FILE_PATH="/tmp/$(date +%Y-%m-%d)_pi-home.tar.gz"
+ETC_BACKUP_FILE_PATH="/tmp/$(date +%Y-%m-%d)_etc.tar.gz"
+
+
+if [ ! -d "$BACKUP_DIR" ]; then
+    echo "Backup directory is not mounted"
+    exit 1
+fi
+
+# Create Backups
+ssh pi@192.168.1.11 "sudo tar czf ${HOME_BACKUP_FILE_PATH} /home/pi"
+ssh pi@192.168.1.11 "sudo tar czf ${ETC_BACKUP_FILE_PATH} /etc"
+
+# Download Backups
+scp "pi@192.168.1.11:$HOME_BACKUP_FILE_PATH" "$BACKUP_DIR"
+scp "pi@192.168.1.11:$ETC_BACKUP_FILE_PATH" "$BACKUP_DIR"
+
+# Delete the backup
+ssh pi@192.168.1.11 "sudo rm -rf ${HOME_BACKUP_FILE_PATH} && sudo rm -rf ${ETC_BACKUP_FILE_PATH}"
