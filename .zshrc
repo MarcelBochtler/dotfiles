@@ -4,6 +4,8 @@
 
 DOTZSH=$HOME/.zsh
 
+set -o emacs
+
 # Configurations taken from zprezto
 source $DOTZSH/zsh-completion-settings.zsh
 source $DOTZSH/zsh-directory.zsh
