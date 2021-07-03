@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+BACKUP_DIR="$HOME/Private/Backups"
+MONEYMONEY_BACKUP_DIR="$BACKUP_DIR/MoneyMoney"
+PARENT_DIR="$HOME/Library/Containers/com.moneymoney-app.retail/Data/Library/Application Support"
+MONEYMONEY_DIR="MoneyMoney"
+
+if [ ! -d "$PARENT_DIR/$MONEYMONEY_DIR" ]; then
+    echo "Directory $PARENT_DIR/$MONEYMONEY_DIR does not exist."
+    exit 1
+fi
+
+BACKUP_FILE_PATH="$MONEYMONEY_BACKUP_DIR/$(date +%Y-%m-%d)-moneymoney.tar.gz"
+(
+    cd "$PARENT_DIR"
+    tar czf "$BACKUP_FILE_PATH" "$MONEYMONEY_DIR"
+)
