@@ -9,6 +9,12 @@ BACKUP_DIR="$HOME/Private/Backups/RaspberryPi/tar"
 HOME_BACKUP_FILE_PATH="/tmp/$(date +%Y-%m-%d)_pi-home.tar.gz"
 ETC_BACKUP_FILE_PATH="/tmp/$(date +%Y-%m-%d)_etc.tar.gz"
 
+PI_IP="192.168.1.11"
+
+if ! ping -c1 -W1 "$PI_IP" &>/dev/null; then
+    echo "$PI_IP is not reachable."
+    exit 1
+fi
 
 if [ ! -d "$BACKUP_DIR" ]; then
     echo "Backup directory is not mounted"
@@ -20,8 +26,8 @@ ssh pi@192.168.1.11 "sudo tar czf ${HOME_BACKUP_FILE_PATH} /home/pi"
 ssh pi@192.168.1.11 "sudo tar czf ${ETC_BACKUP_FILE_PATH} /etc"
 
 # Download Backups
-scp "pi@192.168.1.11:$HOME_BACKUP_FILE_PATH" "$BACKUP_DIR"
-scp "pi@192.168.1.11:$ETC_BACKUP_FILE_PATH" "$BACKUP_DIR"
+scp "pi@$PI_IP:$HOME_BACKUP_FILE_PATH" "$BACKUP_DIR"
+scp "pi@$PI_IP:$ETC_BACKUP_FILE_PATH" "$BACKUP_DIR"
 
 # Delete the backup
-ssh pi@192.168.1.11 "sudo rm -rf ${HOME_BACKUP_FILE_PATH} && sudo rm -rf ${ETC_BACKUP_FILE_PATH}"
+ssh pi@$PI_IP "sudo rm -rf ${HOME_BACKUP_FILE_PATH} && sudo rm -rf ${ETC_BACKUP_FILE_PATH}"
