@@ -125,3 +125,7 @@ update() {
   $HOME/bin/do_update
 }
 alias up="update"
+
+if [ -x "$(command -v thefuck)" ]; then
+  eval $(thefuck --alias pls)
+fi
