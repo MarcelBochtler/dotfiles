@@ -44,7 +44,7 @@ dot add .vimrc
 dot commit -m "Add vimrc"
 dot push
 # Add new plugin
-dot submodules add https://github.com/user/project .zsh/project
+dot submodule add https://github.com/user/project .zsh/project
 # And source the *.zsh script in .zshrc
 ```
 
