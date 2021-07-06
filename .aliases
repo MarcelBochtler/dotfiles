@@ -85,6 +85,7 @@ alias gbr="git branch"
 alias gph="git push"
 alias gpl="git pull --rebase"
 alias gs="git status"
+alias gd="git diff"
 # fixup - requires a hash as value
 alias gcf="git commit --fixup"
 alias gst="nice_status"
