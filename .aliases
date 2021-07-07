@@ -103,6 +103,11 @@ alias gup="git fetch upstream master:master"
 # Sync with upstream
 alias gsy="git sync"
 
+# Git pull force. Reset the branch to the tracked remote branch.
+gplf() {
+  git reset --soft $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
+}
+
 alias mvni='mvn install'
 alias mvnci='mvn clean install'
 
