@@ -1,12 +1,18 @@
 #!/bin/bash
 
+#
+# Fix all permissions recursively for $1 and up to /Users.
+#
+
 set -e
 
-path="$HOME/Private/workspace/macports-ports"
+if [ -z "$1" ]; then
+    echo "Usage: $(basename $0) <path>"
+    exit 1
+fi
 
 # Fix permissions for all directories in $path
-echo "chmod +rx $path"
-fd . "$path" -HI -t d --exec chmod +rx
+path=$1
 
 # Fix permissions for all files in $path
 echo "chmod +r $path"
