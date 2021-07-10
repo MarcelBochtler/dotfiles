@@ -2,10 +2,10 @@ Dotfiles
 ========
 My Linux / MacOS dotfiles setup.
 
-The approach was taken from a [Medium article by Flavio Wuensche
-](https://medium.com/toutsbrasil/how-to-manage-your-dotfiles-with-git-f7aeed8adf8b) which in turn is based on [Hacker News solution proposed by StreakyCobra](https://news.ycombinator.com/item?id=11070797)
+The approach is based on a [Medium article by Flavio Antelo
+](https://medium.com/toutsbrasil/how-to-manage-your-dotfiles-with-git-f7aeed8adf8b) which itself is based on [Hacker News post by StreakyCobra](https://news.ycombinator.com/item?id=11070797).
 
-# Setup environment on a new computer
+# Setup environment
 Clone the GIT repository
 ```bash
 git clone --bare git@github.com:MarcelBochtler/dotfiles.git $HOME/.dotfiles
@@ -43,7 +43,10 @@ dot up
 dot add .vimrc
 dot commit -m "Add vimrc"
 dot push
-# Add new plugin
+```
+
+## Add new plugins
+```bash
 dot submodule add https://github.com/user/project .zsh/project
 # And source the *.zsh script in .zshrc
 ```
