@@ -64,13 +64,13 @@
 				<key>Class Name</key>
 				<string>AMGetSelectedFinderItemsAction</string>
 				<key>InputUUID</key>
-				<string>17393C39-BA10-48B3-9372-D544F113D3BC</string>
+				<string>280A1572-3971-449D-964E-F32ABF7C97FF</string>
 				<key>Keywords</key>
 				<array/>
 				<key>OutputUUID</key>
-				<string>060821EB-4CC8-402F-9CF0-77CB2D6B76B1</string>
+				<string>3D92A59F-944F-46BA-92B7-E788CC31B3AC</string>
 				<key>UUID</key>
-				<string>036C1773-E389-45D7-A404-CA4013E0A5DA</string>
+				<string>7A325AF8-0C04-462C-8490-C37434857541</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Finder</string>
@@ -227,7 +227,7 @@
 				<key>Class Name</key>
 				<string>AMRenameFinderItemsAction</string>
 				<key>InputUUID</key>
-				<string>8DAD0EA2-7121-4C82-B47C-EA64CA4CD383</string>
+				<string>6D25A407-0E95-41D0-B9C5-ACBE80A6CD33</string>
 				<key>Keywords</key>
 				<array>
 					<string>Name</string>
@@ -248,9 +248,9 @@
 					<string>Sequential</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>3E391D2E-4A5A-4C79-ABE5-19DB4DC44E0F</string>
+				<string>07AF6C2E-711F-458B-B44F-664DE3DD8AB8</string>
 				<key>UUID</key>
-				<string>F6BF059A-4C20-4F44-92B6-F7ACC0071FC5</string>
+				<string>B494C1CA-C08F-4777-9DBB-DB497CB93F4B</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Finder</string>
@@ -547,7 +547,7 @@
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
-				<string>309.000000:340.000000</string>
+				<string>301.500000:393.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Rename Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -557,18 +557,40 @@
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>07CE0C2A-5B82-41B5-B159-9752633E7A40</key>
+		<key>31EE4146-83A0-44A3-8955-69C01059C3AC</key>
 		<dict>
 			<key>from</key>
-			<string>036C1773-E389-45D7-A404-CA4013E0A5DA - 036C1773-E389-45D7-A404-CA4013E0A5DA</string>
+			<string>7A325AF8-0C04-462C-8490-C37434857541 - 7A325AF8-0C04-462C-8490-C37434857541</string>
 			<key>to</key>
-			<string>F6BF059A-4C20-4F44-92B6-F7ACC0071FC5 - F6BF059A-4C20-4F44-92B6-F7ACC0071FC5</string>
+			<string>B494C1CA-C08F-4777-9DBB-DB497CB93F4B - B494C1CA-C08F-4777-9DBB-DB497CB93F4B</string>
 		</dict>
 	</dict>
 	<key>workflowMetaData</key>
 	<dict>
+		<key>applicationBundleIDsByPath</key>
+		<dict/>
+		<key>applicationPaths</key>
+		<array/>
+		<key>inputTypeIdentifier</key>
+		<string>com.apple.Automator.fileSystemObject</string>
+		<key>outputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>presentationMode</key>
+		<integer>15</integer>
+		<key>processesInput</key>
+		<integer>0</integer>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.fileSystemObject</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
+		<key>systemImageName</key>
+		<string>NSActionTemplate</string>
+		<key>useAutomaticInputType</key>
+		<integer>1</integer>
 		<key>workflowTypeIdentifier</key>
-		<string>com.apple.Automator.application</string>
+		<string>com.apple.Automator.servicesMenu</string>
 	</dict>
 </dict>
 </plist>
