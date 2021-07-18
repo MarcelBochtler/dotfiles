@@ -11,8 +11,11 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-# Fix permissions for all directories in $path
 path=$1
+
+# Fix permissions for all directories in $path
+echo "chmod +rx $path"
+fd . "$path" -HI -t d --exec chmod +rx
 
 # Fix permissions for all files in $path
 echo "chmod +r $path"
