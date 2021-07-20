@@ -27,9 +27,6 @@ if [ "$(command -v xdg-open)" ]; then
   alias open="xdg-open"
   alias o="xdg-open"
 fi
-if [ -d ~/.diff-so-fancy ]; then
-  alias diff-so-fancy="~/.diff-so-fancy/diff-so-fancy"
-fi
 
 # Used to pipe to clipboard
 alias copy="xclip -selection c"
