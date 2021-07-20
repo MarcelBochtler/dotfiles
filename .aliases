@@ -19,8 +19,13 @@ alias mv="mv -iv"
 alias cp="cp -riv"
 alias mkdir="mkdir -vp"
 
+if [ "$(command -v open)" ]; then
+  alias o="open"
+fi
+
 if [ "$(command -v xdg-open)" ]; then
   alias open="xdg-open"
+  alias o="xdg-open"
 fi
 if [ -d ~/.diff-so-fancy ]; then
   alias diff-so-fancy="~/.diff-so-fancy/diff-so-fancy"
