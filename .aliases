@@ -28,6 +28,10 @@ if [ "$(command -v xdg-open)" ]; then
   alias o="xdg-open"
 fi
 
+if [ "$(command -v code)" ]; then
+  alias c="code"
+fi
+
 # Used to pipe to clipboard
 alias copy="xclip -selection c"
 
